@@ -70,72 +70,74 @@ export const TokenAutocomplete: React.FC<TokenAutocompleteProps> = ({
 
   return (
     <div ref={containerRef} style={styles.container}>
-      <input
-        type="text"
-        style={{
-          ...styles.input,
-          ...(isFocused ? styles.inputFocus : {}),
-        }}
-        placeholder={placeholder}
-        value={inputValue}
-        onChange={e => {
-          setInputValue(e.target.value);
-          setIsOpen(true);
-        }}
-        onFocus={() => {
-          setIsOpen(true);
-          setIsFocused(true);
-        }}
-        onBlur={() => setIsFocused(false)}
-        autoComplete="off"
-      />
-      {isOpen && (
-        <div style={styles.dropdown}>
-          {filtered.length === 0 ? (
-            <div style={styles.noResults}>No tokens found</div>
-          ) : (
-            filtered.map(option => (
-              <div
-                key={option.contractAddress}
-                style={{
-                  ...styles.option,
-                  ...(value?.contractAddress === option.contractAddress ? styles.optionSelected : {}),
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = styles.optionHover.background;
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = 
-                    value?.contractAddress === option.contractAddress 
-                      ? styles.optionSelected.background 
-                      : 'transparent';
-                }}
-                onClick={() => handleSelect(option)}
-                onMouseDown={e => e.preventDefault()}
-              >
-                <img 
-                  src={option.imageUrl} 
-                  alt={`${option.name} logo`}
+      <div className="autocomplete-wrapper">
+        <input
+          type="text"
+          style={{
+            ...styles.input,
+            ...(isFocused ? styles.inputFocus : {}),
+          }}
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={e => {
+            setInputValue(e.target.value);
+            setIsOpen(true);
+          }}
+          onFocus={() => {
+            setIsOpen(true);
+            setIsFocused(true);
+          }}
+          onBlur={() => setIsFocused(false)}
+          autoComplete="off"
+        />
+        {isOpen && (
+          <div className="autocomplete-dropdown" style={styles.dropdown}>
+            {filtered.length === 0 ? (
+              <div style={styles.noResults}>No tokens found</div>
+            ) : (
+              filtered.map(option => (
+                <div
+                  key={option.contractAddress}
                   style={{
-                    ...styles.tokenImage,
-                    ...(value?.contractAddress === option.contractAddress ? styles.tokenImageSelected : {}),
+                    ...styles.option,
+                    ...(value?.contractAddress === option.contractAddress ? styles.optionSelected : {}),
                   }}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'https://via.placeholder.com/32';
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = styles.optionHover.background;
                   }}
-                />
-                <div style={styles.tokenInfo}>
-                  <span style={styles.tokenName}>
-                    {option.name} (${option.symbol})
-                  </span>
-                  <span style={styles.tokenAddress}>{option.contractAddress}</span>
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 
+                      value?.contractAddress === option.contractAddress 
+                        ? styles.optionSelected.background 
+                        : 'transparent';
+                  }}
+                  onClick={() => handleSelect(option)}
+                  onMouseDown={e => e.preventDefault()}
+                >
+                  <img 
+                    src={option.imageUrl} 
+                    alt={`${option.name} logo`}
+                    style={{
+                      ...styles.tokenImage,
+                      ...(value?.contractAddress === option.contractAddress ? styles.tokenImageSelected : {}),
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://via.placeholder.com/32';
+                    }}
+                  />
+                  <div className="token-info" style={styles.tokenInfo}>
+                    <span className="token-name" style={styles.tokenName}>
+                      {option.name} (${option.symbol})
+                    </span>
+                    <span className="token-address" style={styles.tokenAddress}>{option.contractAddress}</span>
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+              ))
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

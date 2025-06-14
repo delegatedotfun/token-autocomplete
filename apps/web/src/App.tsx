@@ -11,8 +11,13 @@ const App: React.FC = () => {
     fetch('/tokens.json')
       .then((res) => res.json())
       .then((data) => {
-        console.log('data', data);
-        setOptions(data);
+        const mappedData = data.map((token: any) => ({
+          name: token.name,
+          symbol: token.symbol,
+          contractAddress: token.address,
+          imageUrl: token.logoURI
+        }));
+        setOptions(mappedData);
       })
       .catch((err) => console.error('Failed to load tokens.json', err));
   }, []);
