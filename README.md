@@ -1,6 +1,8 @@
 # Token Autocomplete Monorepo
 
-Welcome to the **Token Autocomplete** monorepo! This open source project provides a modern, full-stack solution for token search and autocomplete, built with React, Node.js, and Turborepo.
+Welcome to the **Token Autocomplete** monorepo maintained by delegatedotfun.
+
+![Demo](https://storage.googleapis.com/delegatedotfun-public/autocomplete.png)
 
 ## Project Structure
 
@@ -28,15 +30,23 @@ npm install
 ```
 
 ### Development
-To start the frontend React app:
+Check out the demo by starting the React app as such:
 ```bash
-npm run dev:web
+npm run start:web
 ```
 
-To run the token-fetch package (Node.js):
+### Component
+If you want to use the component in your projects, just copy-paste TokenAutocomplete.tsx and TokenAutocomplete.styles.ts (or use your own styling)
+
+
+### Jupiter Verify token fetch
+Running this script will automatically save the data fetched into a file (tokens.json) within the demo's public repo to make the data available to view in the demo.
+
+WARNING!!!: using the demo with the fetched data will result in heavy data consumption due to image links
+
+To run the token-fetch service (Node.js):
 ```bash
-cd packages/token-fetch
-npm run dev
+npm run start:token-fetch
 ```
 
 ## Contributing
