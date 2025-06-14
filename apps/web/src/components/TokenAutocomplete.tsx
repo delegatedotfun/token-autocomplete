@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { FixedSizeList as _FixedSizeLis } from 'react-window';
+import type { FixedSizeListProps } from 'react-window';
 import { styles } from './TokenAutocomplete.styles';
+
+const FixedSizeList = _FixedSizeLis as unknown as React.ComponentType<FixedSizeListProps>;
 
 export interface TokenOption {
   name: string;
@@ -95,45 +99,56 @@ export const TokenAutocomplete: React.FC<TokenAutocompleteProps> = ({
             {filtered.length === 0 ? (
               <div style={styles.noResults}>No tokens found</div>
             ) : (
-              filtered.map(option => (
-                <div
-                  key={option.contractAddress}
-                  style={{
-                    ...styles.option,
-                    ...(value?.contractAddress === option.contractAddress ? styles.optionSelected : {}),
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = styles.optionHover.background;
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = 
-                      value?.contractAddress === option.contractAddress 
-                        ? styles.optionSelected.background 
-                        : 'transparent';
-                  }}
-                  onClick={() => handleSelect(option)}
-                  onMouseDown={e => e.preventDefault()}
-                >
-                  <img 
-                    src={option.imageUrl} 
-                    alt={`${option.name} logo`}
-                    style={{
-                      ...styles.tokenImage,
-                      ...(value?.contractAddress === option.contractAddress ? styles.tokenImageSelected : {}),
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = 'https://via.placeholder.com/32';
-                    }}
-                  />
-                  <div className="token-info" style={styles.tokenInfo}>
-                    <span className="token-name" style={styles.tokenName}>
-                      {option.name} (${option.symbol})
-                    </span>
-                    <span className="token-address" style={styles.tokenAddress}>{option.contractAddress}</span>
-                  </div>
-                </div>
-              ))
+              <FixedSizeList
+                height={Math.min(8, filtered.length) * 56}
+                itemCount={filtered.length}
+                itemSize={56}
+                width={"100%"}
+              >
+                {({ index, style }: { index: number; style: React.CSSProperties }) => {
+                  const option = filtered[index];
+                  return (
+                    <div
+                      key={option.contractAddress}
+                      style={{
+                        ...styles.option,
+                        ...(value?.contractAddress === option.contractAddress ? styles.optionSelected : {}),
+                        ...style,
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = styles.optionHover.background;
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = 
+                          value?.contractAddress === option.contractAddress 
+                            ? styles.optionSelected.background 
+                            : 'transparent';
+                      }}
+                      onClick={() => handleSelect(option)}
+                      onMouseDown={e => e.preventDefault()}
+                    >
+                      <img 
+                        src={option.imageUrl} 
+                        alt={`${option.name} logo`}
+                        style={{
+                          ...styles.tokenImage,
+                          ...(value?.contractAddress === option.contractAddress ? styles.tokenImageSelected : {}),
+                        }}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/32';
+                        }}
+                      />
+                      <div className="token-info" style={styles.tokenInfo}>
+                        <span className="token-name" style={styles.tokenName}>
+                          {option.name} (${option.symbol})
+                        </span>
+                        <span className="token-address" style={styles.tokenAddress}>{option.contractAddress}</span>
+                      </div>
+                    </div>
+                  );
+                }}
+              </FixedSizeList>
             )}
           </div>
         )}
