@@ -42,7 +42,7 @@ If you want to use the component in your projects, just copy-paste TokenAutocomp
 ### Jupiter Verify token fetch
 Running this script will automatically save the data fetched into a file (tokens.json) within the demo's public repo to make the data available to view in the demo.
 
-WARNING!!!: using the demo with the fetched data will result in heavy data consumption due to image links
+<b>WARNING!!!</b> using the demo with the fetched data will result in heavy data consumption due to image links
 
 To run the token-fetch service (Node.js):
 ```bash
