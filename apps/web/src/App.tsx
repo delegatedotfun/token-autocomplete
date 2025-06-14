@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TokenAutocomplete from './components/TokenAutocomplete';
 import type { TokenOption } from './components/TokenAutocomplete';
 import './App.css';
 
 const App: React.FC = () => {
   const [selectedToken, setSelectedToken] = useState<TokenOption | null>(null);
+  const [options, setOptions] = useState<TokenOption[]>([]);
+
+  useEffect(() => {
+    fetch('/tokens.json')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data);
+        setOptions(data);
+      })
+      .catch((err) => console.error('Failed to load tokens.json', err));
+  }, []);
 
   const handleTokenChange = (token: TokenOption | null) => {
     setSelectedToken(token);
@@ -22,6 +33,7 @@ const App: React.FC = () => {
               value={selectedToken}
               onChange={handleTokenChange}
               placeholder="Search by token name or address..."
+              options={options}
             />
           </div>
           {selectedToken && (
