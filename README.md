@@ -43,6 +43,8 @@ Running this script will automatically save the data fetched into a file (tokens
 
 <b>WARNING!!!</b> using the demo with the fetched data will result in heavy data consumption due to image links
 
+In real-world apps, you probably want to cache the images
+
 To run the token-fetch service (Node.js):
 ```bash
 npm run start:token-fetch
