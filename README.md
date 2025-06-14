@@ -11,8 +11,7 @@ Welcome to the **Token Autocomplete** monorepo maintained by delegatedotfun.
 ├── apps/
 │   └── web/            # React frontend app
 ├── packages/
-│   └── token-fetch/    # Node.js package for fetching token data
-├── data/               # Shared data (e.g., tokens.json)
+│   └── token-fetch/    # Node.js package for fetching token
 ├── turbo.json          # Turborepo pipeline config
 ├── package.json        # Monorepo root config
 └── README.md           # Project documentation
