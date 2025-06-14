@@ -1,5 +1,5 @@
 {
-  "name": "token-autocomplete",
+  "name": "@delegatedotfun/token-autocomplete",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=web",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
@@ -17,8 +18,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "turbo": "latest",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "turbo": "latest"
   },
   "packageManager": "npm@10.2.4"
 }
