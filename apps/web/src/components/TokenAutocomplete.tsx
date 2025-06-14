@@ -35,7 +35,7 @@ export const TokenAutocomplete: React.FC<TokenAutocompleteProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const data = options || DUMMY_TOKENS;
+  const data = (options == null || options.length === 0) ? DUMMY_TOKENS : options;
 
   useEffect(() => {
     if (inputValue.trim() === '') {
